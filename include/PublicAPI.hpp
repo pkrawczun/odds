@@ -186,6 +186,13 @@ void SimpleLinearAnnualAlgorithm(const std::string& league,
       tmp_table.ResetTable();                                   
       match_date = (*it).GetDate();
       tmp_table.SetDates(SubtractOneYear(match_date), SubtractOneDay(match_date));
+      /*
+      std::cout
+        << "match_date = " << match_date
+        << ", year before = " << SubtractOneYear(match_date)
+        << ", day before = " << SubtractOneDay(match_date)
+        << std::endl;
+      */
       the_connection = tmp_table.ReadFixtures(std::move(the_connection));
       tmp_table.CompileTable();
       tmp_table.Renorm();

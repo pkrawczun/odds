@@ -11,7 +11,7 @@ int main (int argc, char** argv) {
     auto the_outer_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
     auto the_shared_connection = GetSharedPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
 
-  the_connection = GenerateConventionalTable("bundesliga", "2010-2011", std::move(the_connection));
+  //the_connection = GenerateConventionalTable("bundesliga", "2010-2011", std::move(the_connection));
   //the_connection = GenerateSemiConventionalTable("premier_league", "2025-01-01", "2025-09-30" , std::move(the_connection));
 /*  the_connection = GenerateLinearTable("premier_league", "2024-09-24", "2025-09-25",
                                        2.22f, 1.78f, 2.22f, 3.33f, std::move(the_connection));
@@ -25,7 +25,7 @@ int main (int argc, char** argv) {
                                        2.22f, 1.78f, 2.22f, 3.33f, std::move(the_connection));
  */ 
   //SimpleSemiConventionalAnnualAlgorithm("premier_league", "2009-08-01", "2025-09-09");
-  //SimpleLinearAnnualAlgorithm("primera_division", "2009-08-01", "2025-09-25", 2.22f, 1.78f, 2.22f, 3.33f);
+  SimpleLinearAnnualAlgorithm("primera_division", "2009-08-01", "2025-09-25", 2.22f, 1.78f, 2.22f, 3.33f);
 
 /*  
   const std::string& l ="bundesliga";
@@ -44,5 +44,13 @@ int main (int argc, char** argv) {
 //  Season season("premier_league", "2023-2024");
 //  season.Print();
   
+  /*
+  std::string today = "2020-02-29";
+  std::cout << today << std::endl;
+  std::cout << AddOneDay(today) << std::endl;
+  std::cout << SubtractOneDay(today) << std::endl;
+  std::cout << SubtractOneYear(today) <<std::endl;
+  std::cout << SubtractOneDay(SubtractOneYear(today)) <<std::endl;
+  */
   return 0;
 }
