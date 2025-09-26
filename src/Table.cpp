@@ -82,9 +82,7 @@ void Table::CalculateStandings() {
       } else {
         std::cerr << "Failed to access db with Table::ReadFixtures" << std::endl;
         return nullptr;
-        //return 1; // what then? void cannot return 1
       }
-      // Create a non-transactional query
       pqxx::nontransaction ntx(*borrowed_connection);
 /*      pqxx::result r = ntx.exec_params( R"(
         SELECT fixture_date, home, away, home_score, away_score, outcome
@@ -94,7 +92,7 @@ void Table::CalculateStandings() {
 */
 
 
-      std::string query = // fix the db and then use this for queries
+      std::string query =
 		"SELECT "
 		"    f.fixture_date, "
 		"    ht.name AS home, "

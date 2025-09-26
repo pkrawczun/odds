@@ -14,6 +14,7 @@ import std.core;
 
 enum class Outcome {H=0, D=1, A=2};
 
+/*
 namespace premier_league {
   const std::unordered_map<std::string, std::pair<std::string, std::string>> seasons {
     {"2009-2010", {"2009-08-15", "2010-05-09"}},
@@ -218,6 +219,7 @@ namespace primera_division {
 	{"2025-2026",{"2025-08-15","2026-05-24"}}
 };
 }
+*/
 
 // a temp function // fails for leap years
 std::string SubtractOneYear(const std::string& date); 

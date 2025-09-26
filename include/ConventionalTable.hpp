@@ -10,7 +10,7 @@ import std.core;
 
 #include "SemiConventionalTable.hpp"
 #include "Miscellaneous.hpp"
-//#include "Season.hpp"
+#include "Season.hpp"
 
 class ConventionalTable final : public SemiConventionalTable {
 public:
@@ -21,6 +21,10 @@ public:
    :  SemiConventionalTable(league) {
     scoring_system={3.0f, 1.0f, 1.0f, 3.0f}; // WHY IS THIS NEEDED HERE?
     try {
+      Season s(league, season);
+      start_date = s.GetStartDate();
+      end_date = s.GetEndDate();
+      /*
       if (league == "premier_league") {
         // NB: using find() instead of at() might make it cleaner
         start_date = premier_league::seasons.at(season).first;
@@ -45,6 +49,7 @@ public:
         start_date = "";
         end_date = "";
       }
+      */
     } catch (const std::out_of_range& e) {
       std::cerr << "Season " << season << " does not exist for league " << league << "." << std::endl;
       start_date = "";
