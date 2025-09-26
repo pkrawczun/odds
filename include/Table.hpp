@@ -68,10 +68,6 @@ public:
 
   std::unique_ptr<pqxx::connection>
     ReadFixtures(std::unique_ptr<pqxx::connection> borrowed_connection);
-    
-  // Bad idea. Work with either a shared or a unique pointer at a time
-  //void
-  //  ReadFixtures(std::shared_ptr<pqxx::connection> borrowed_connection);
 
   virtual void CompileTable() = 0;
 

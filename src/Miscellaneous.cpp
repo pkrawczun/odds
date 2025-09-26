@@ -28,15 +28,6 @@ std::string SubtractOneYear(const std::string& date) { // date = "YYYY-MM-DD"
 std::string SubtractOneDay(const std::string& today) { // date = "YYYY-MM-DD"
   std::string yesterday;
   try {
-/*
-    pqxx::connection conn("dbname=odds user=postgres password=mypassword host=localhost");
-    if (conn.is_open()) {
-      //std::cout << "Connected to database: " << conn.dbname() << std::endl;
-    } else {
-      std::cerr << "Failed to connect" << std::endl;
-      //return 1; // what then? void cannot return 1
-    }
-*/
     auto conn = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
     // Create a non-transactional query
     pqxx::nontransaction ntx(*conn);
@@ -47,11 +38,9 @@ std::string SubtractOneDay(const std::string& today) { // date = "YYYY-MM-DD"
     for (auto row : r) {
       yesterday = row["previous_day"].as<std::string>();
     }
-    //conn.close();
   }
   catch (const std::exception &e) {
     std::cerr << e.what() << std::endl;
-//    return 1; // what then? void cannot return 1
     return today;
   }
   return yesterday;
@@ -61,7 +50,6 @@ std::string SubtractOneDay(const std::string& today) { // date = "YYYY-MM-DD"
 std::string AddOneDay(const std::string& today) { // date = "YYYY-MM-DD"
   std::string tomorrow;
   try {
-    //pqxx::connection conn("dbname=odds user=postgres password=mypassword host=localhost");
     auto conn = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
     if (conn->is_open()) {
       //std::cout << "Connected to database: " << conn.dbname() << std::endl;

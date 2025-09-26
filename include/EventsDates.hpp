@@ -43,8 +43,7 @@ public:
     }
     catch (const std::exception &e) {
       std::cerr << e.what() << std::endl;
-//      return 1; // what then? void cannot return 1
-      return borrowed_connection;
+      return nullptr;
     }
   }
   
