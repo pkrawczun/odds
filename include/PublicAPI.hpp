@@ -53,19 +53,22 @@ std::unique_ptr<pqxx::connection> SeasonTotalMatches(
   return std::move(borrowed_connection);
 }
 
+void GenerateTable(Table& tbl) {
+  tbl.CompileTable();
+  tbl.Renorm();
+  tbl.Sort();
+  tbl.CalculateStandings();
+  tbl.Print();
+}
 
 std::unique_ptr<pqxx::connection> GenerateConventionalTable(
                                const std::string& league,
                                const std::string& season,
                                std::unique_ptr<pqxx::connection> borrowed_connection)
 {
-  ConventionalTable conv{league, season};
-  borrowed_connection = conv.ReadFixtures(std::move(borrowed_connection));
-  conv.CompileTable();
-  conv.Renorm();
-  conv.Sort();
-  conv.CalculateStandings();
-  conv.Print();
+  ConventionalTable tbl{league, season};
+  borrowed_connection = tbl.ReadFixtures(std::move(borrowed_connection));
+  GenerateTable(tbl);
   return borrowed_connection;
 }
 
@@ -75,13 +78,9 @@ std::unique_ptr<pqxx::connection> GenerateSemiConventionalTable(
                                const std::string& end_date,
                                std::unique_ptr<pqxx::connection> borrowed_connection)
 {
-  SemiConventionalTable semi{league, start_date, end_date};
-  borrowed_connection = semi.ReadFixtures(std::move(borrowed_connection));
-  semi.CompileTable();
-  semi.Renorm();
-  semi.Sort();
-  semi.CalculateStandings();
-  semi.Print();
+  SemiConventionalTable tbl{league, start_date, end_date};
+  borrowed_connection = tbl.ReadFixtures(std::move(borrowed_connection));
+  GenerateTable(tbl);
   return borrowed_connection;
 }
 
@@ -92,13 +91,9 @@ std::unique_ptr<pqxx::connection> GenerateLinearTable(
                                float hw, float hd, float ad, float aw,
                                std::unique_ptr<pqxx::connection> borrowed_connection)
 {
-  LinearTable line{league, start_date, end_date, hw, hd, ad, aw};
-  borrowed_connection = line.ReadFixtures(std::move(borrowed_connection));
-  line.CompileTable();
-  line.Renorm();
-  line.Sort();
-  line.CalculateStandings();
-  line.Print();
+  LinearTable tbl{league, start_date, end_date, hw, hd, ad, aw};
+  borrowed_connection = tbl.ReadFixtures(std::move(borrowed_connection));
+  GenerateTable(tbl);
   return borrowed_connection;
 }
 
