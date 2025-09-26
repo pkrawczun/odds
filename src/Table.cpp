@@ -130,8 +130,7 @@ void Table::CalculateStandings() {
     }
     catch (const std::exception &e) {
       std::cerr << e.what() << std::endl;
-//      return 1; // what then? void cannot return 1
-      return borrowed_connection;
+      return nullptr;
     }
     // Print the matches on the screen
     //for (auto match : matches) {

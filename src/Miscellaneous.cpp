@@ -66,11 +66,9 @@ std::string AddOneDay(const std::string& today) { // date = "YYYY-MM-DD"
     for (auto row : r) {
       tomorrow = row["next_day"].as<std::string>();
     }
-    //conn.close();
   }
   catch (const std::exception &e) {
     std::cerr << e.what() << std::endl;
-//    return 1; // what then? void cannot return 1
     return today;
   }
   return tomorrow;
