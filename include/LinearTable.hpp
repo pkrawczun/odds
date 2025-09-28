@@ -72,6 +72,18 @@ public:
     }
   }
   
+  void SetScoring(const std::array<float, 4>& s) {
+    scoring_system = s;
+  }
+  
+  void SetScoring(float hw, float hd, float ad, float aw) {
+    scoring_system = {hw, hd, ad, aw};
+  }
+
+  std::array<float, 4> GetScoring() const {
+    scoring_system; // returns a copy ofc
+  }
+
 };
 
 #endif
