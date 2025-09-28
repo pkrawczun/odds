@@ -1,15 +1,59 @@
 #include <iostream>
 #include <string>
+#include <exception>
 
-#include "cxxopts.hpp"
 #include "PublicAPI.hpp"
 #include "PqxxConnection.hpp"
 #include "Season.hpp"
 
 int main (int argc, char** argv) {
-    auto the_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
-    auto the_outer_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
-    auto the_shared_connection = GetSharedPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
+  if (argc>1) {
+    try {
+      auto the_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
+      auto the_outer_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
+      auto the_shared_connection = GetSharedPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
+      cxxopts::Options options("Odds", "A sports betting odds calculator using statistics.");
+      
+      options.add_options()
+        ("l,league", "League", cxxopts::value<std::string>()) // string option
+        ("s,season", "Season in YYY1-YYY2 format", cxxopts::value<std::string>()) // string option
+        ("ed", "End date in YYYY-MM-DD format", cxxopts::value<std::string>()) // string option
+        ("sd", "Start date in YYYY-MM-DD format", cxxopts::value<std::string>()) // string option
+        ("conv", "Calculate a conventional table")   // flag
+        ("semi", "Calculate a semi-conventional table")   // flag
+        ("line", "Calculate a linear table")   // flag
+        ("sc", "Scoring parameters", cxxopts::value<std::vector<float>>())
+        ("h,help", "Print help");
+
+      auto result = options.parse(argc, argv);
+      
+      if (result.count("help")) {
+        std::cout << options.help() << std::endl;
+          return 0;
+        }
+      
+      if (result.count("sc")) {
+        auto sc = result["sc"].as<std::vector<float>>();
+        std::cout
+         << "The number of args given: " << sc.size() << std::endl
+         << "Values: ";
+         for (auto x:sc) std::cout << x << " ";
+         std::cout << std::endl;
+        return 0;
+      }
+
+    } catch (const std::exception& e) {
+      std::cerr << "Error parsing options: " << e.what() << "\n";
+      return 1;
+    }
+    return 0;
+    
+  }
+
+
+  auto the_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
+  auto the_outer_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
+  auto the_shared_connection = GetSharedPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
 
   //the_connection = GenerateConventionalTable("bundesliga", "2010-2011", std::move(the_connection));
   //the_connection = GenerateSemiConventionalTable("premier_league", "2025-01-01", "2025-09-30" , std::move(the_connection));
