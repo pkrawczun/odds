@@ -5,9 +5,10 @@
 #include "PublicAPI.hpp"
 #include "PqxxConnection.hpp"
 #include "Season.hpp"
+#include "OptionsParser.hpp"
 
 int main (int argc, char** argv) {
-  if (argc>1) {
+/*  if (argc>1) {
     try {
       auto the_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
       auto the_outer_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
@@ -49,7 +50,7 @@ int main (int argc, char** argv) {
     return 0;
     
   }
-
+*/
 
   auto the_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
   auto the_outer_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
