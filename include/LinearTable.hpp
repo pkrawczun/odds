@@ -81,7 +81,7 @@ public:
   }
 
   std::array<float, 4> GetScoring() const {
-    scoring_system; // returns a copy ofc
+    return scoring_system;
   }
 
 };

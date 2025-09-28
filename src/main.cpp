@@ -8,6 +8,23 @@
 #include "OptionsParser.hpp"
 
 int main (int argc, char** argv) {
+
+  auto options = OptionsParser::parse(argc, argv);
+
+  if (std::get<bool>(options.at(Option::Help))) {
+    std::cout << "Usage: myapp [options]\n";
+    return 0;
+  }
+
+  if (options.count(Option::League)) {
+    std::cout << "League: " << std::get<std::string>(options.at(Option::League)) << "\n";
+  }
+
+  if (options.count(Option::Scoring)) {
+    auto scores = std::get<std::vector<float>>(options.at(Option::Scoring));
+    for (auto v : scores) std::cout << "Score param: " << v << "\n";
+  }
+
 /*  if (argc>1) {
     try {
       auto the_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
