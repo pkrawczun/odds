@@ -9,20 +9,101 @@
 
 int main (int argc, char** argv) {
 
-  auto options = OptionsParser::parse(argc, argv);
+  if (argc > 1) {
+    auto the_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
+    auto the_outer_connection = GetPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
+    auto the_shared_connection = GetSharedPqxxConnection("dbname=odds user=postgres password=mypassword host=localhost");
 
-  if (std::get<bool>(options.at(Option::Help))) {
-    std::cout << "Usage: myapp [options]\n";
+    auto options = OptionsParser::parse(argc, argv);
+
+    if (options.count(Option::Help) && std::get<bool>(options.at(Option::Help))) {
+      std::cout << "Usage: myapp [options]\n";
+      return 0;
+    }
+
+    if (options.count(Option::League)) {
+      std::cout << "League: " << std::get<std::string>(options.at(Option::League)) << "\n";
+    }
+
+    if (options.count(Option::Season)) {
+      std::cout << "Season: " << std::get<std::string>(options.at(Option::Season)) << "\n";
+    }
+
+    if (options.count(Option::StartDate)) {
+      std::cout << "Start Date: " << std::get<std::string>(options.at(Option::StartDate)) << "\n";
+    }
+
+    if (options.count(Option::EndDate)) {
+      std::cout << "End Date: " << std::get<std::string>(options.at(Option::EndDate)) << "\n";
+    }
+
+    if (options.count(Option::Scoring)) {
+      auto scores = std::get<std::vector<float>>(options.at(Option::Scoring));
+      for (auto v : scores) std::cout << "Score param: " << v << "\n";
+    }
+    
+    if (
+      (options.count(Option::Conv) && std::get<bool>(options.at(Option::Conv)))
+      || (options.count(Option::Semi) && std::get<bool>(options.at(Option::Semi)))
+      || (options.count(Option::Line) && std::get<bool>(options.at(Option::Line)))
+    ) {
+        
+        Table* tbl;
+        if (
+          options.count(Option::Conv)
+          && std::get<bool>(options.at(Option::Conv))
+          && options.count(Option::League)
+          && options.count(Option::Season)
+          ) {
+            std::cout
+              << "Calculating a conventional table: league "
+              << std::get<std::string>(options.at(Option::League))
+              << ", season "
+              << std::get<std::string>(options.at(Option::Season))
+              << ".\n";
+        } else if (
+          options.count(Option::Semi)
+          && std::get<bool>(options.at(Option::Semi))
+          && options.count(Option::League)
+          && options.count(Option::StartDate)
+          && options.count(Option::EndDate)
+        ) {
+          std::cout
+            << "Calculating a semi-conventional table: league "
+            << std::get<std::string>(options.at(Option::League))
+            << " from "
+            << std::get<std::string>(options.at(Option::StartDate))
+            << " to "
+            << std::get<std::string>(options.at(Option::EndDate))
+            << ".\n";
+        } else if(
+          options.count(Option::Line)
+          && std::get<bool>(options.at(Option::Line))
+          && options.count(Option::League)
+          && options.count(Option::StartDate)
+          && options.count(Option::EndDate)
+          && options.count(Option::Scoring)
+          && std::get<std::vector<float>>(options.at(Option::Scoring)) .size() == 4
+        ) {
+          std::cout
+            << "Calculating a linear table: league "
+            << std::get<std::string>(options.at(Option::League))
+            << " from "
+            << std::get<std::string>(options.at(Option::StartDate))
+            << " to "
+            << std::get<std::string>(options.at(Option::EndDate))
+            << " with scoring parameters ";
+          for (const auto& f: std::get<std::vector<float>>(options.at(Option::Scoring)))
+          {
+            std::cout << f << ", ";
+          }
+          std::cout << std::endl;
+        } else {
+          std::cout << "Some error.";
+        }
+      }
+    
     return 0;
-  }
-
-  if (options.count(Option::League)) {
-    std::cout << "League: " << std::get<std::string>(options.at(Option::League)) << "\n";
-  }
-
-  if (options.count(Option::Scoring)) {
-    auto scores = std::get<std::vector<float>>(options.at(Option::Scoring));
-    for (auto v : scores) std::cout << "Score param: " << v << "\n";
   }
 
 /*  if (argc>1) {
