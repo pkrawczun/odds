@@ -17,7 +17,8 @@ enum class Option {
   Conv,
   Semi,
   Line,
-  Scoring
+  Scoring,
+  Tests,
 };
 
 using OptionValue = std::variant<std::monostate, bool, std::string, std::vector<float>>;
@@ -54,6 +55,9 @@ public:
       }
       else if (arg == "--line") {
         opts[Option::Line] = true;
+      }
+      else if (arg == "--run-tests") {
+        opts[Option::Tests] = true;
       }
       else if (arg == "--sc") {
         std::vector<float> vals;
