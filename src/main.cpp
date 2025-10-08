@@ -94,9 +94,9 @@ int main (int argc, char** argv) {
           std::cout << "Some error.";
         }
       } else if (
-        options.count(Option::Conv) && std::get<bool>(options.at(Option::Conv))
+        options.count(Option::Tests) && std::get<bool>(options.at(Option::Tests))
       ) {
-        std::cout << "Running tests...";
+        std::cout << "Running tests..." << std::endl;
         RunTests(false);
       }
     
