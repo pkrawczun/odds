@@ -109,19 +109,19 @@ int main (int argc, char** argv) {
 
   //the_connection = GenerateConventionalTable("bundesliga", "2010-2011", std::move(the_connection));
   //the_connection = GenerateSemiConventionalTable("premier_league", "2025-01-01", "2025-09-30" , std::move(the_connection));
-/*  the_connection = GenerateLinearTable("premier_league", "2024-09-30", "2025-09-30",
+/*  the_connection = GenerateLinearTable("premier_league", "2024-10-14", "2025-10-13",
                                        2.22f, 1.78f, 2.22f, 3.33f, std::move(the_connection));
-  the_connection = GenerateLinearTable("bundesliga", "2024-09-30", "2025-09-30",
+  the_connection = GenerateLinearTable("bundesliga", "2024-10-14", "2025-10-13",
                                        2.22f, 1.78f, 2.22f, 3.33f, std::move(the_connection));
-  the_connection = GenerateLinearTable("ligue_1", "2024-09-30", "2025-09-30",
+  the_connection = GenerateLinearTable("ligue_1", "2024-10-14", "2025-10-13",
                                        2.22f, 1.78f, 2.22f, 3.33f, std::move(the_connection));
-  the_connection = GenerateLinearTable("serie_a", "2024-09-30", "2025-09-30",
+  the_connection = GenerateLinearTable("serie_a", "2024-10-14", "2025-10-13",
                                        2.22f, 1.78f, 2.22f, 3.33f, std::move(the_connection));
-  the_connection = GenerateLinearTable("primera_division", "2024-09-30", "2025-09-30",
+  the_connection = GenerateLinearTable("primera_division", "2024-10-14", "2025-10-13",
                                        2.22f, 1.78f, 2.22f, 3.33f, std::move(the_connection));
 */  
-  //SimpleSemiConventionalAnnualAlgorithm("bundesliga", "2009-08-01", "2025-09-09");
-  SimpleLinearAnnualAlgorithm("primera_division", "2009-08-01", "2025-09-30", 2.22f, 1.78f, 2.22f, 3.33f);
+  //SimpleSemiConventionalAnnualAlgorithm("premier_league", "2009-08-01", "2025-09-09");
+  SimpleLinearAnnualAlgorithm("premier_league", "2009-08-01", "2025-10-13", 2.22f, 1.78f, 2.22f, 3.33f);
 
 /*  
   const std::string& l ="bundesliga";
