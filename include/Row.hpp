@@ -19,13 +19,13 @@ class Row {
 public:
   Row(std::string team_name): team_name(team_name) {}
   
-  // The == operation on floats is fine here because if equal, they will be computed with the same formula
+  // The == operation on floats is fine here because if equal, they will have been computed with the same formula
   bool operator==(const Row& other) const {
     return std::tie(pts_renorm, pts, goal_difference, goals_for) ==
              std::tie(other.pts_renorm, other.pts, other.goal_difference, other.goals_for);
   }
 
-  // The > operation on floats is fine here because if equal, they will be computed with the same formula
+  // The > operation on floats is fine here because if equal, they will have been computed with the same formula
   bool operator>(const Row& other) const {
       return std::tie(pts_renorm, pts, goal_difference, goals_for) >
              std::tie(other.pts_renorm, other.pts, other.goal_difference, other.goals_for);
