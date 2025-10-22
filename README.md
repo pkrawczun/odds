@@ -20,3 +20,12 @@ sudo chown postgres:postgres /home/yourname/odds/odds.sql
 sudo -i -u postgres
 createdb odds
 psql -d odds -f /home/yourname/odds/odds.sql
+
+witin the psql odds db:
+ALTER USER postgres PASSWORD 'mypassword';
+
+
+Example use:
+./odds --conv --league "premier_league" --season "2023-2024"
+./odds --semi --league "premier_league" --sd "2011-01-01" --ed "2012-12-31"
+./odds --line --league "ligue_1" --sd "2011-01-01" --ed "2012-12-31" --sc 2.0 1.0 1.5 3.0
