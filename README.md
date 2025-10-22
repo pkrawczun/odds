@@ -21,7 +21,7 @@ sudo -i -u postgres
 createdb odds
 psql -d odds -f /home/yourname/odds/odds.sql
 
-witin the psql odds db:
+within the psql odds db:
 ALTER USER postgres PASSWORD 'mypassword';
 
 
