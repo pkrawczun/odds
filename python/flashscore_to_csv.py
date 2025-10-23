@@ -196,7 +196,6 @@ for league in leagues:
                 #date and time
                 day = lines[i][:2]
                 month = lines[i][3:5]
-                
                 #hour =
                 #minutes =
             else:
