@@ -212,7 +212,7 @@ for league in leagues:
                 day = lines[i][:2]
                 month = lines[i][3:5]
                 #hour =
-                #day =
+                #minute =
             else:
                 raise RawFileSyntaxError(lines[i], ": this should be in date and time format MM.DD. HH:MM")
             team1 = lines[i+1]
