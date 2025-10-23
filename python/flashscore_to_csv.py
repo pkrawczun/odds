@@ -215,13 +215,26 @@ for league in leagues:
             else:
                 result1 = '99' # input the results manually if either is double-digit
                 result2 = '99'
-            if int(month) <= 6:
+            if int(month) <= 6: # do not use the 'year' variable, get the year later
                 year = end_year
             else:
                 year = start_year
-            print("Season, Date: ", season, ' ', year, '/', month,'/', day)
-            print (team1, ', ', team2, ', ', result1, '-', result2)
+            #print("Season, Date: ", season, ' ', year, '/', month,'/', day)
+            #print (team1, ', ', team2, ', ', result1, '-', result2)
             i += 4
+            # print it out like this, copy-paste into a spreadsheet and get the year from that
+            print(
+                '"', season, '"', ";",
+                start_year, ";",
+                end_year, ";",
+                month, ";",
+                day, ";",
+                '"', team1, '"', ";",
+                '"', team2, '"', ";",
+                result1, ";",
+                result2,
+                sep = ""
+                )
     except IndexError:
         pass
     teams_from_all_leagues[league] = teams
