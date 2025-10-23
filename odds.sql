@@ -2,12 +2,15 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.9 (Ubuntu 16.9-0ubuntu0.24.10.1)
--- Dumped by pg_dump version 16.9 (Ubuntu 16.9-0ubuntu0.24.10.1)
+\restrict sfML1QayzBWmEfIS2IDASG6Btp7YW8W4geyINvj7ha7Pis1H3r7MPnfnOz7TZLl
+
+-- Dumped from database version 17.6 (Ubuntu 17.6-1build1)
+-- Dumped by pg_dump version 17.6 (Ubuntu 17.6-1build1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -17,6 +20,15 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: brasileiro_serie_a; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA brasileiro_serie_a;
+
+
+ALTER SCHEMA brasileiro_serie_a OWNER TO postgres;
+
+--
 -- Name: bundesliga; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -24,6 +36,42 @@ CREATE SCHEMA bundesliga;
 
 
 ALTER SCHEMA bundesliga OWNER TO postgres;
+
+--
+-- Name: denmark_superliga; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA denmark_superliga;
+
+
+ALTER SCHEMA denmark_superliga OWNER TO postgres;
+
+--
+-- Name: ekstraklasa; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA ekstraklasa;
+
+
+ALTER SCHEMA ekstraklasa OWNER TO postgres;
+
+--
+-- Name: eredivisie; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA eredivisie;
+
+
+ALTER SCHEMA eredivisie OWNER TO postgres;
+
+--
+-- Name: jupiler_pro_league; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA jupiler_pro_league;
+
+
+ALTER SCHEMA jupiler_pro_league OWNER TO postgres;
 
 --
 -- Name: ligue_1; Type: SCHEMA; Schema: -; Owner: postgres
@@ -44,6 +92,15 @@ CREATE SCHEMA premier_league;
 ALTER SCHEMA premier_league OWNER TO postgres;
 
 --
+-- Name: primeira_liga; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA primeira_liga;
+
+
+ALTER SCHEMA primeira_liga OWNER TO postgres;
+
+--
 -- Name: primera_division; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -53,6 +110,15 @@ CREATE SCHEMA primera_division;
 ALTER SCHEMA primera_division OWNER TO postgres;
 
 --
+-- Name: prva_hrvatska; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA prva_hrvatska;
+
+
+ALTER SCHEMA prva_hrvatska OWNER TO postgres;
+
+--
 -- Name: serie_a; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
@@ -60,6 +126,24 @@ CREATE SCHEMA serie_a;
 
 
 ALTER SCHEMA serie_a OWNER TO postgres;
+
+--
+-- Name: swiss_super_league; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA swiss_super_league;
+
+
+ALTER SCHEMA swiss_super_league OWNER TO postgres;
+
+--
+-- Name: turkey_super_lig; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA turkey_super_lig;
+
+
+ALTER SCHEMA turkey_super_lig OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -107,6 +191,68 @@ ALTER SEQUENCE premier_league.fixtures_fixture_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE premier_league.fixtures_fixture_id_seq OWNED BY premier_league.fixtures.fixture_id;
+
+
+--
+-- Name: fixtures; Type: TABLE; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+CREATE TABLE brasileiro_serie_a.fixtures (
+    home_score integer,
+    away_score integer,
+    fixture_date date NOT NULL,
+    fixture_id integer DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass) NOT NULL,
+    home_id integer NOT NULL,
+    away_id integer NOT NULL,
+    outcome integer GENERATED ALWAYS AS (
+CASE
+    WHEN (home_score > away_score) THEN 0
+    WHEN (home_score < away_score) THEN 2
+    ELSE 1
+END) STORED
+);
+
+
+ALTER TABLE brasileiro_serie_a.fixtures OWNER TO postgres;
+
+--
+-- Name: seasons; Type: TABLE; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+CREATE TABLE brasileiro_serie_a.seasons (
+    name character(9) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status character varying(255)
+);
+
+
+ALTER TABLE brasileiro_serie_a.seasons OWNER TO postgres;
+
+--
+-- Name: teams; Type: TABLE; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+CREATE TABLE brasileiro_serie_a.teams (
+    name character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE brasileiro_serie_a.teams OWNER TO postgres;
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+ALTER TABLE brasileiro_serie_a.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME brasileiro_serie_a.teams_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1
+);
 
 
 --
@@ -168,6 +314,254 @@ ALTER TABLE bundesliga.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTI
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: fixtures; Type: TABLE; Schema: denmark_superliga; Owner: postgres
+--
+
+CREATE TABLE denmark_superliga.fixtures (
+    home_score integer,
+    away_score integer,
+    fixture_date date NOT NULL,
+    fixture_id integer DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass) NOT NULL,
+    home_id integer NOT NULL,
+    away_id integer NOT NULL,
+    outcome integer GENERATED ALWAYS AS (
+CASE
+    WHEN (home_score > away_score) THEN 0
+    WHEN (home_score < away_score) THEN 2
+    ELSE 1
+END) STORED
+);
+
+
+ALTER TABLE denmark_superliga.fixtures OWNER TO postgres;
+
+--
+-- Name: seasons; Type: TABLE; Schema: denmark_superliga; Owner: postgres
+--
+
+CREATE TABLE denmark_superliga.seasons (
+    name character(9) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status character varying(255)
+);
+
+
+ALTER TABLE denmark_superliga.seasons OWNER TO postgres;
+
+--
+-- Name: teams; Type: TABLE; Schema: denmark_superliga; Owner: postgres
+--
+
+CREATE TABLE denmark_superliga.teams (
+    name character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE denmark_superliga.teams OWNER TO postgres;
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE; Schema: denmark_superliga; Owner: postgres
+--
+
+ALTER TABLE denmark_superliga.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME denmark_superliga.teams_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1
+);
+
+
+--
+-- Name: fixtures; Type: TABLE; Schema: ekstraklasa; Owner: postgres
+--
+
+CREATE TABLE ekstraklasa.fixtures (
+    home_score integer,
+    away_score integer,
+    fixture_date date NOT NULL,
+    fixture_id integer DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass) NOT NULL,
+    home_id integer NOT NULL,
+    away_id integer NOT NULL,
+    outcome integer GENERATED ALWAYS AS (
+CASE
+    WHEN (home_score > away_score) THEN 0
+    WHEN (home_score < away_score) THEN 2
+    ELSE 1
+END) STORED
+);
+
+
+ALTER TABLE ekstraklasa.fixtures OWNER TO postgres;
+
+--
+-- Name: seasons; Type: TABLE; Schema: ekstraklasa; Owner: postgres
+--
+
+CREATE TABLE ekstraklasa.seasons (
+    name character(9) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status character varying(255)
+);
+
+
+ALTER TABLE ekstraklasa.seasons OWNER TO postgres;
+
+--
+-- Name: teams; Type: TABLE; Schema: ekstraklasa; Owner: postgres
+--
+
+CREATE TABLE ekstraklasa.teams (
+    name character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE ekstraklasa.teams OWNER TO postgres;
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE; Schema: ekstraklasa; Owner: postgres
+--
+
+ALTER TABLE ekstraklasa.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME ekstraklasa.teams_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1
+);
+
+
+--
+-- Name: fixtures; Type: TABLE; Schema: eredivisie; Owner: postgres
+--
+
+CREATE TABLE eredivisie.fixtures (
+    home_score integer,
+    away_score integer,
+    fixture_date date NOT NULL,
+    fixture_id integer DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass) NOT NULL,
+    home_id integer NOT NULL,
+    away_id integer NOT NULL,
+    outcome integer GENERATED ALWAYS AS (
+CASE
+    WHEN (home_score > away_score) THEN 0
+    WHEN (home_score < away_score) THEN 2
+    ELSE 1
+END) STORED
+);
+
+
+ALTER TABLE eredivisie.fixtures OWNER TO postgres;
+
+--
+-- Name: seasons; Type: TABLE; Schema: eredivisie; Owner: postgres
+--
+
+CREATE TABLE eredivisie.seasons (
+    name character(9) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status character varying(255)
+);
+
+
+ALTER TABLE eredivisie.seasons OWNER TO postgres;
+
+--
+-- Name: teams; Type: TABLE; Schema: eredivisie; Owner: postgres
+--
+
+CREATE TABLE eredivisie.teams (
+    name character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE eredivisie.teams OWNER TO postgres;
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE; Schema: eredivisie; Owner: postgres
+--
+
+ALTER TABLE eredivisie.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME eredivisie.teams_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1
+);
+
+
+--
+-- Name: fixtures; Type: TABLE; Schema: jupiler_pro_league; Owner: postgres
+--
+
+CREATE TABLE jupiler_pro_league.fixtures (
+    home_score integer,
+    away_score integer,
+    fixture_date date NOT NULL,
+    fixture_id integer DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass) NOT NULL,
+    home_id integer NOT NULL,
+    away_id integer NOT NULL,
+    outcome integer GENERATED ALWAYS AS (
+CASE
+    WHEN (home_score > away_score) THEN 0
+    WHEN (home_score < away_score) THEN 2
+    ELSE 1
+END) STORED
+);
+
+
+ALTER TABLE jupiler_pro_league.fixtures OWNER TO postgres;
+
+--
+-- Name: seasons; Type: TABLE; Schema: jupiler_pro_league; Owner: postgres
+--
+
+CREATE TABLE jupiler_pro_league.seasons (
+    name character(9) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status character varying(255)
+);
+
+
+ALTER TABLE jupiler_pro_league.seasons OWNER TO postgres;
+
+--
+-- Name: teams; Type: TABLE; Schema: jupiler_pro_league; Owner: postgres
+--
+
+CREATE TABLE jupiler_pro_league.teams (
+    name character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE jupiler_pro_league.teams OWNER TO postgres;
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE; Schema: jupiler_pro_league; Owner: postgres
+--
+
+ALTER TABLE jupiler_pro_league.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME jupiler_pro_league.teams_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
     CACHE 1
 );
 
@@ -288,6 +682,68 @@ CREATE TABLE premier_league.venues (
 ALTER TABLE premier_league.venues OWNER TO postgres;
 
 --
+-- Name: fixtures; Type: TABLE; Schema: primeira_liga; Owner: postgres
+--
+
+CREATE TABLE primeira_liga.fixtures (
+    home_score integer,
+    away_score integer,
+    fixture_date date NOT NULL,
+    fixture_id integer DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass) NOT NULL,
+    home_id integer NOT NULL,
+    away_id integer NOT NULL,
+    outcome integer GENERATED ALWAYS AS (
+CASE
+    WHEN (home_score > away_score) THEN 0
+    WHEN (home_score < away_score) THEN 2
+    ELSE 1
+END) STORED
+);
+
+
+ALTER TABLE primeira_liga.fixtures OWNER TO postgres;
+
+--
+-- Name: seasons; Type: TABLE; Schema: primeira_liga; Owner: postgres
+--
+
+CREATE TABLE primeira_liga.seasons (
+    name character(9) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status character varying(255)
+);
+
+
+ALTER TABLE primeira_liga.seasons OWNER TO postgres;
+
+--
+-- Name: teams; Type: TABLE; Schema: primeira_liga; Owner: postgres
+--
+
+CREATE TABLE primeira_liga.teams (
+    name character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE primeira_liga.teams OWNER TO postgres;
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE; Schema: primeira_liga; Owner: postgres
+--
+
+ALTER TABLE primeira_liga.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME primeira_liga.teams_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1
+);
+
+
+--
 -- Name: fixtures; Type: TABLE; Schema: primera_division; Owner: postgres
 --
 
@@ -347,6 +803,68 @@ ALTER TABLE primera_division.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS 
     INCREMENT BY 1
     NO MINVALUE
     NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: fixtures; Type: TABLE; Schema: prva_hrvatska; Owner: postgres
+--
+
+CREATE TABLE prva_hrvatska.fixtures (
+    home_score integer,
+    away_score integer,
+    fixture_date date NOT NULL,
+    fixture_id integer DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass) NOT NULL,
+    home_id integer NOT NULL,
+    away_id integer NOT NULL,
+    outcome integer GENERATED ALWAYS AS (
+CASE
+    WHEN (home_score > away_score) THEN 0
+    WHEN (home_score < away_score) THEN 2
+    ELSE 1
+END) STORED
+);
+
+
+ALTER TABLE prva_hrvatska.fixtures OWNER TO postgres;
+
+--
+-- Name: seasons; Type: TABLE; Schema: prva_hrvatska; Owner: postgres
+--
+
+CREATE TABLE prva_hrvatska.seasons (
+    name character(9) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status character varying(255)
+);
+
+
+ALTER TABLE prva_hrvatska.seasons OWNER TO postgres;
+
+--
+-- Name: teams; Type: TABLE; Schema: prva_hrvatska; Owner: postgres
+--
+
+CREATE TABLE prva_hrvatska.teams (
+    name character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE prva_hrvatska.teams OWNER TO postgres;
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE; Schema: prva_hrvatska; Owner: postgres
+--
+
+ALTER TABLE prva_hrvatska.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME prva_hrvatska.teams_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
     CACHE 1
 );
 
@@ -438,10 +956,158 @@ CREATE TABLE serie_a.tmp (
 ALTER TABLE serie_a.tmp OWNER TO postgres;
 
 --
+-- Name: fixtures; Type: TABLE; Schema: swiss_super_league; Owner: postgres
+--
+
+CREATE TABLE swiss_super_league.fixtures (
+    home_score integer,
+    away_score integer,
+    fixture_date date NOT NULL,
+    fixture_id integer DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass) NOT NULL,
+    home_id integer NOT NULL,
+    away_id integer NOT NULL,
+    outcome integer GENERATED ALWAYS AS (
+CASE
+    WHEN (home_score > away_score) THEN 0
+    WHEN (home_score < away_score) THEN 2
+    ELSE 1
+END) STORED
+);
+
+
+ALTER TABLE swiss_super_league.fixtures OWNER TO postgres;
+
+--
+-- Name: seasons; Type: TABLE; Schema: swiss_super_league; Owner: postgres
+--
+
+CREATE TABLE swiss_super_league.seasons (
+    name character(9) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status character varying(255)
+);
+
+
+ALTER TABLE swiss_super_league.seasons OWNER TO postgres;
+
+--
+-- Name: teams; Type: TABLE; Schema: swiss_super_league; Owner: postgres
+--
+
+CREATE TABLE swiss_super_league.teams (
+    name character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE swiss_super_league.teams OWNER TO postgres;
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE; Schema: swiss_super_league; Owner: postgres
+--
+
+ALTER TABLE swiss_super_league.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME swiss_super_league.teams_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1
+);
+
+
+--
+-- Name: fixtures; Type: TABLE; Schema: turkey_super_lig; Owner: postgres
+--
+
+CREATE TABLE turkey_super_lig.fixtures (
+    home_score integer,
+    away_score integer,
+    fixture_date date NOT NULL,
+    fixture_id integer DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass) NOT NULL,
+    home_id integer NOT NULL,
+    away_id integer NOT NULL,
+    outcome integer GENERATED ALWAYS AS (
+CASE
+    WHEN (home_score > away_score) THEN 0
+    WHEN (home_score < away_score) THEN 2
+    ELSE 1
+END) STORED
+);
+
+
+ALTER TABLE turkey_super_lig.fixtures OWNER TO postgres;
+
+--
+-- Name: seasons; Type: TABLE; Schema: turkey_super_lig; Owner: postgres
+--
+
+CREATE TABLE turkey_super_lig.seasons (
+    name character(9) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    status character varying(255)
+);
+
+
+ALTER TABLE turkey_super_lig.seasons OWNER TO postgres;
+
+--
+-- Name: teams; Type: TABLE; Schema: turkey_super_lig; Owner: postgres
+--
+
+CREATE TABLE turkey_super_lig.teams (
+    name character varying(255) NOT NULL,
+    team_id integer NOT NULL
+);
+
+
+ALTER TABLE turkey_super_lig.teams OWNER TO postgres;
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE; Schema: turkey_super_lig; Owner: postgres
+--
+
+ALTER TABLE turkey_super_lig.teams ALTER COLUMN team_id ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME turkey_super_lig.teams_team_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 2147483647
+    CACHE 1
+);
+
+
+--
 -- Name: fixtures fixture_id; Type: DEFAULT; Schema: premier_league; Owner: postgres
 --
 
 ALTER TABLE ONLY premier_league.fixtures ALTER COLUMN fixture_id SET DEFAULT nextval('premier_league.fixtures_fixture_id_seq'::regclass);
+
+
+--
+-- Data for Name: fixtures; Type: TABLE DATA; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+COPY brasileiro_serie_a.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+COPY brasileiro_serie_a.seasons (name, start_date, end_date, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+COPY brasileiro_serie_a.teams (name, team_id) FROM stdin;
+\.
 
 
 --
@@ -19558,6 +20224,102 @@ Wuppertal	58
 
 
 --
+-- Data for Name: fixtures; Type: TABLE DATA; Schema: denmark_superliga; Owner: postgres
+--
+
+COPY denmark_superliga.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: denmark_superliga; Owner: postgres
+--
+
+COPY denmark_superliga.seasons (name, start_date, end_date, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: denmark_superliga; Owner: postgres
+--
+
+COPY denmark_superliga.teams (name, team_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: fixtures; Type: TABLE DATA; Schema: ekstraklasa; Owner: postgres
+--
+
+COPY ekstraklasa.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: ekstraklasa; Owner: postgres
+--
+
+COPY ekstraklasa.seasons (name, start_date, end_date, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: ekstraklasa; Owner: postgres
+--
+
+COPY ekstraklasa.teams (name, team_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: fixtures; Type: TABLE DATA; Schema: eredivisie; Owner: postgres
+--
+
+COPY eredivisie.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: eredivisie; Owner: postgres
+--
+
+COPY eredivisie.seasons (name, start_date, end_date, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: eredivisie; Owner: postgres
+--
+
+COPY eredivisie.teams (name, team_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: fixtures; Type: TABLE DATA; Schema: jupiler_pro_league; Owner: postgres
+--
+
+COPY jupiler_pro_league.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: jupiler_pro_league; Owner: postgres
+--
+
+COPY jupiler_pro_league.seasons (name, start_date, end_date, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: jupiler_pro_league; Owner: postgres
+--
+
+COPY jupiler_pro_league.teams (name, team_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: ligue_1; Owner: postgres
 --
 
@@ -34443,6 +35205,30 @@ COPY premier_league.venues (name) FROM stdin;
 
 
 --
+-- Data for Name: fixtures; Type: TABLE DATA; Schema: primeira_liga; Owner: postgres
+--
+
+COPY primeira_liga.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: primeira_liga; Owner: postgres
+--
+
+COPY primeira_liga.seasons (name, start_date, end_date, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: primeira_liga; Owner: postgres
+--
+
+COPY primeira_liga.teams (name, team_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: primera_division; Owner: postgres
 --
 
@@ -48474,6 +49260,30 @@ Valencia	47
 Elche	48
 Gimnastic	49
 UD Salamanca	50
+\.
+
+
+--
+-- Data for Name: fixtures; Type: TABLE DATA; Schema: prva_hrvatska; Owner: postgres
+--
+
+COPY prva_hrvatska.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: prva_hrvatska; Owner: postgres
+--
+
+COPY prva_hrvatska.seasons (name, start_date, end_date, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: prva_hrvatska; Owner: postgres
+--
+
+COPY prva_hrvatska.teams (name, team_id) FROM stdin;
 \.
 
 
@@ -86273,10 +87083,93 @@ COPY serie_a.tmp (name) FROM stdin;
 
 
 --
+-- Data for Name: fixtures; Type: TABLE DATA; Schema: swiss_super_league; Owner: postgres
+--
+
+COPY swiss_super_league.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: swiss_super_league; Owner: postgres
+--
+
+COPY swiss_super_league.seasons (name, start_date, end_date, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: swiss_super_league; Owner: postgres
+--
+
+COPY swiss_super_league.teams (name, team_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: fixtures; Type: TABLE DATA; Schema: turkey_super_lig; Owner: postgres
+--
+
+COPY turkey_super_lig.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: seasons; Type: TABLE DATA; Schema: turkey_super_lig; Owner: postgres
+--
+
+COPY turkey_super_lig.seasons (name, start_date, end_date, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: teams; Type: TABLE DATA; Schema: turkey_super_lig; Owner: postgres
+--
+
+COPY turkey_super_lig.teams (name, team_id) FROM stdin;
+\.
+
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+SELECT pg_catalog.setval('brasileiro_serie_a.teams_team_id_seq', 1, false);
+
+
+--
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: bundesliga; Owner: postgres
 --
 
 SELECT pg_catalog.setval('bundesliga.teams_team_id_seq', 58, true);
+
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: denmark_superliga; Owner: postgres
+--
+
+SELECT pg_catalog.setval('denmark_superliga.teams_team_id_seq', 1, false);
+
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: ekstraklasa; Owner: postgres
+--
+
+SELECT pg_catalog.setval('ekstraklasa.teams_team_id_seq', 1, false);
+
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: eredivisie; Owner: postgres
+--
+
+SELECT pg_catalog.setval('eredivisie.teams_team_id_seq', 1, false);
+
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: jupiler_pro_league; Owner: postgres
+--
+
+SELECT pg_catalog.setval('jupiler_pro_league.teams_team_id_seq', 1, false);
 
 
 --
@@ -86301,6 +87194,13 @@ SELECT pg_catalog.setval('premier_league.teams_team_id_seq', 42, true);
 
 
 --
+-- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: primeira_liga; Owner: postgres
+--
+
+SELECT pg_catalog.setval('primeira_liga.teams_team_id_seq', 1, false);
+
+
+--
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: primera_division; Owner: postgres
 --
 
@@ -86308,10 +87208,63 @@ SELECT pg_catalog.setval('primera_division.teams_team_id_seq', 50, true);
 
 
 --
+-- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: prva_hrvatska; Owner: postgres
+--
+
+SELECT pg_catalog.setval('prva_hrvatska.teams_team_id_seq', 1, false);
+
+
+--
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: serie_a; Owner: postgres
 --
 
 SELECT pg_catalog.setval('serie_a.teams_team_id_seq', 53, true);
+
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: swiss_super_league; Owner: postgres
+--
+
+SELECT pg_catalog.setval('swiss_super_league.teams_team_id_seq', 1, false);
+
+
+--
+-- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: turkey_super_lig; Owner: postgres
+--
+
+SELECT pg_catalog.setval('turkey_super_lig.teams_team_id_seq', 1, false);
+
+
+--
+-- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+ALTER TABLE ONLY brasileiro_serie_a.fixtures
+    ADD CONSTRAINT fixtures_pkey PRIMARY KEY (fixture_id);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+ALTER TABLE ONLY brasileiro_serie_a.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: teams teams_name_key; Type: CONSTRAINT; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+ALTER TABLE ONLY brasileiro_serie_a.teams
+    ADD CONSTRAINT teams_name_key UNIQUE (name);
+
+
+--
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+ALTER TABLE ONLY brasileiro_serie_a.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
 
 
 --
@@ -86343,6 +87296,134 @@ ALTER TABLE ONLY bundesliga.teams
 --
 
 ALTER TABLE ONLY bundesliga.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
+
+
+--
+-- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: denmark_superliga; Owner: postgres
+--
+
+ALTER TABLE ONLY denmark_superliga.fixtures
+    ADD CONSTRAINT fixtures_pkey PRIMARY KEY (fixture_id);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: denmark_superliga; Owner: postgres
+--
+
+ALTER TABLE ONLY denmark_superliga.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: teams teams_name_key; Type: CONSTRAINT; Schema: denmark_superliga; Owner: postgres
+--
+
+ALTER TABLE ONLY denmark_superliga.teams
+    ADD CONSTRAINT teams_name_key UNIQUE (name);
+
+
+--
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: denmark_superliga; Owner: postgres
+--
+
+ALTER TABLE ONLY denmark_superliga.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
+
+
+--
+-- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: ekstraklasa; Owner: postgres
+--
+
+ALTER TABLE ONLY ekstraklasa.fixtures
+    ADD CONSTRAINT fixtures_pkey PRIMARY KEY (fixture_id);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: ekstraklasa; Owner: postgres
+--
+
+ALTER TABLE ONLY ekstraklasa.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: teams teams_name_key; Type: CONSTRAINT; Schema: ekstraklasa; Owner: postgres
+--
+
+ALTER TABLE ONLY ekstraklasa.teams
+    ADD CONSTRAINT teams_name_key UNIQUE (name);
+
+
+--
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: ekstraklasa; Owner: postgres
+--
+
+ALTER TABLE ONLY ekstraklasa.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
+
+
+--
+-- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: eredivisie; Owner: postgres
+--
+
+ALTER TABLE ONLY eredivisie.fixtures
+    ADD CONSTRAINT fixtures_pkey PRIMARY KEY (fixture_id);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: eredivisie; Owner: postgres
+--
+
+ALTER TABLE ONLY eredivisie.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: teams teams_name_key; Type: CONSTRAINT; Schema: eredivisie; Owner: postgres
+--
+
+ALTER TABLE ONLY eredivisie.teams
+    ADD CONSTRAINT teams_name_key UNIQUE (name);
+
+
+--
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: eredivisie; Owner: postgres
+--
+
+ALTER TABLE ONLY eredivisie.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
+
+
+--
+-- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: jupiler_pro_league; Owner: postgres
+--
+
+ALTER TABLE ONLY jupiler_pro_league.fixtures
+    ADD CONSTRAINT fixtures_pkey PRIMARY KEY (fixture_id);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: jupiler_pro_league; Owner: postgres
+--
+
+ALTER TABLE ONLY jupiler_pro_league.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: teams teams_name_key; Type: CONSTRAINT; Schema: jupiler_pro_league; Owner: postgres
+--
+
+ALTER TABLE ONLY jupiler_pro_league.teams
+    ADD CONSTRAINT teams_name_key UNIQUE (name);
+
+
+--
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: jupiler_pro_league; Owner: postgres
+--
+
+ALTER TABLE ONLY jupiler_pro_league.teams
     ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
 
 
@@ -86411,6 +87492,38 @@ ALTER TABLE ONLY premier_league.teams
 
 
 --
+-- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: primeira_liga; Owner: postgres
+--
+
+ALTER TABLE ONLY primeira_liga.fixtures
+    ADD CONSTRAINT fixtures_pkey PRIMARY KEY (fixture_id);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: primeira_liga; Owner: postgres
+--
+
+ALTER TABLE ONLY primeira_liga.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: teams teams_name_key; Type: CONSTRAINT; Schema: primeira_liga; Owner: postgres
+--
+
+ALTER TABLE ONLY primeira_liga.teams
+    ADD CONSTRAINT teams_name_key UNIQUE (name);
+
+
+--
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: primeira_liga; Owner: postgres
+--
+
+ALTER TABLE ONLY primeira_liga.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
+
+
+--
 -- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: primera_division; Owner: postgres
 --
 
@@ -86439,6 +87552,38 @@ ALTER TABLE ONLY primera_division.teams
 --
 
 ALTER TABLE ONLY primera_division.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
+
+
+--
+-- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: prva_hrvatska; Owner: postgres
+--
+
+ALTER TABLE ONLY prva_hrvatska.fixtures
+    ADD CONSTRAINT fixtures_pkey PRIMARY KEY (fixture_id);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: prva_hrvatska; Owner: postgres
+--
+
+ALTER TABLE ONLY prva_hrvatska.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: teams teams_name_key; Type: CONSTRAINT; Schema: prva_hrvatska; Owner: postgres
+--
+
+ALTER TABLE ONLY prva_hrvatska.teams
+    ADD CONSTRAINT teams_name_key UNIQUE (name);
+
+
+--
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: prva_hrvatska; Owner: postgres
+--
+
+ALTER TABLE ONLY prva_hrvatska.teams
     ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
 
 
@@ -86475,6 +87620,84 @@ ALTER TABLE ONLY serie_a.teams
 
 
 --
+-- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: swiss_super_league; Owner: postgres
+--
+
+ALTER TABLE ONLY swiss_super_league.fixtures
+    ADD CONSTRAINT fixtures_pkey PRIMARY KEY (fixture_id);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: swiss_super_league; Owner: postgres
+--
+
+ALTER TABLE ONLY swiss_super_league.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: teams teams_name_key; Type: CONSTRAINT; Schema: swiss_super_league; Owner: postgres
+--
+
+ALTER TABLE ONLY swiss_super_league.teams
+    ADD CONSTRAINT teams_name_key UNIQUE (name);
+
+
+--
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: swiss_super_league; Owner: postgres
+--
+
+ALTER TABLE ONLY swiss_super_league.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
+
+
+--
+-- Name: fixtures fixtures_pkey; Type: CONSTRAINT; Schema: turkey_super_lig; Owner: postgres
+--
+
+ALTER TABLE ONLY turkey_super_lig.fixtures
+    ADD CONSTRAINT fixtures_pkey PRIMARY KEY (fixture_id);
+
+
+--
+-- Name: seasons seasons_pkey; Type: CONSTRAINT; Schema: turkey_super_lig; Owner: postgres
+--
+
+ALTER TABLE ONLY turkey_super_lig.seasons
+    ADD CONSTRAINT seasons_pkey PRIMARY KEY (name);
+
+
+--
+-- Name: teams teams_name_key; Type: CONSTRAINT; Schema: turkey_super_lig; Owner: postgres
+--
+
+ALTER TABLE ONLY turkey_super_lig.teams
+    ADD CONSTRAINT teams_name_key UNIQUE (name);
+
+
+--
+-- Name: teams teams_pkey; Type: CONSTRAINT; Schema: turkey_super_lig; Owner: postgres
+--
+
+ALTER TABLE ONLY turkey_super_lig.teams
+    ADD CONSTRAINT teams_pkey PRIMARY KEY (team_id);
+
+
+--
+-- Name: fixtures_away_id_idx; Type: INDEX; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+CREATE INDEX fixtures_away_id_idx ON brasileiro_serie_a.fixtures USING btree (away_id);
+
+
+--
+-- Name: fixtures_home_id_idx; Type: INDEX; Schema: brasileiro_serie_a; Owner: postgres
+--
+
+CREATE INDEX fixtures_home_id_idx ON brasileiro_serie_a.fixtures USING btree (home_id);
+
+
+--
 -- Name: idx_fixtures_away_id; Type: INDEX; Schema: bundesliga; Owner: postgres
 --
 
@@ -86486,6 +87709,62 @@ CREATE INDEX idx_fixtures_away_id ON bundesliga.fixtures USING btree (away_id);
 --
 
 CREATE INDEX idx_fixtures_home_id ON bundesliga.fixtures USING btree (home_id);
+
+
+--
+-- Name: fixtures_away_id_idx; Type: INDEX; Schema: denmark_superliga; Owner: postgres
+--
+
+CREATE INDEX fixtures_away_id_idx ON denmark_superliga.fixtures USING btree (away_id);
+
+
+--
+-- Name: fixtures_home_id_idx; Type: INDEX; Schema: denmark_superliga; Owner: postgres
+--
+
+CREATE INDEX fixtures_home_id_idx ON denmark_superliga.fixtures USING btree (home_id);
+
+
+--
+-- Name: fixtures_away_id_idx; Type: INDEX; Schema: ekstraklasa; Owner: postgres
+--
+
+CREATE INDEX fixtures_away_id_idx ON ekstraklasa.fixtures USING btree (away_id);
+
+
+--
+-- Name: fixtures_home_id_idx; Type: INDEX; Schema: ekstraklasa; Owner: postgres
+--
+
+CREATE INDEX fixtures_home_id_idx ON ekstraklasa.fixtures USING btree (home_id);
+
+
+--
+-- Name: fixtures_away_id_idx; Type: INDEX; Schema: eredivisie; Owner: postgres
+--
+
+CREATE INDEX fixtures_away_id_idx ON eredivisie.fixtures USING btree (away_id);
+
+
+--
+-- Name: fixtures_home_id_idx; Type: INDEX; Schema: eredivisie; Owner: postgres
+--
+
+CREATE INDEX fixtures_home_id_idx ON eredivisie.fixtures USING btree (home_id);
+
+
+--
+-- Name: fixtures_away_id_idx; Type: INDEX; Schema: jupiler_pro_league; Owner: postgres
+--
+
+CREATE INDEX fixtures_away_id_idx ON jupiler_pro_league.fixtures USING btree (away_id);
+
+
+--
+-- Name: fixtures_home_id_idx; Type: INDEX; Schema: jupiler_pro_league; Owner: postgres
+--
+
+CREATE INDEX fixtures_home_id_idx ON jupiler_pro_league.fixtures USING btree (home_id);
 
 
 --
@@ -86517,6 +87796,20 @@ CREATE INDEX idx_fixtures_home_id ON premier_league.fixtures USING btree (home_i
 
 
 --
+-- Name: fixtures_away_id_idx; Type: INDEX; Schema: primeira_liga; Owner: postgres
+--
+
+CREATE INDEX fixtures_away_id_idx ON primeira_liga.fixtures USING btree (away_id);
+
+
+--
+-- Name: fixtures_home_id_idx; Type: INDEX; Schema: primeira_liga; Owner: postgres
+--
+
+CREATE INDEX fixtures_home_id_idx ON primeira_liga.fixtures USING btree (home_id);
+
+
+--
 -- Name: idx_fixtures_away_id; Type: INDEX; Schema: primera_division; Owner: postgres
 --
 
@@ -86531,6 +87824,20 @@ CREATE INDEX idx_fixtures_home_id ON primera_division.fixtures USING btree (home
 
 
 --
+-- Name: fixtures_away_id_idx; Type: INDEX; Schema: prva_hrvatska; Owner: postgres
+--
+
+CREATE INDEX fixtures_away_id_idx ON prva_hrvatska.fixtures USING btree (away_id);
+
+
+--
+-- Name: fixtures_home_id_idx; Type: INDEX; Schema: prva_hrvatska; Owner: postgres
+--
+
+CREATE INDEX fixtures_home_id_idx ON prva_hrvatska.fixtures USING btree (home_id);
+
+
+--
 -- Name: idx_fixtures_away_id; Type: INDEX; Schema: serie_a; Owner: postgres
 --
 
@@ -86542,6 +87849,34 @@ CREATE INDEX idx_fixtures_away_id ON serie_a.fixtures USING btree (away_id);
 --
 
 CREATE INDEX idx_fixtures_home_id ON serie_a.fixtures USING btree (home_id);
+
+
+--
+-- Name: fixtures_away_id_idx; Type: INDEX; Schema: swiss_super_league; Owner: postgres
+--
+
+CREATE INDEX fixtures_away_id_idx ON swiss_super_league.fixtures USING btree (away_id);
+
+
+--
+-- Name: fixtures_home_id_idx; Type: INDEX; Schema: swiss_super_league; Owner: postgres
+--
+
+CREATE INDEX fixtures_home_id_idx ON swiss_super_league.fixtures USING btree (home_id);
+
+
+--
+-- Name: fixtures_away_id_idx; Type: INDEX; Schema: turkey_super_lig; Owner: postgres
+--
+
+CREATE INDEX fixtures_away_id_idx ON turkey_super_lig.fixtures USING btree (away_id);
+
+
+--
+-- Name: fixtures_home_id_idx; Type: INDEX; Schema: turkey_super_lig; Owner: postgres
+--
+
+CREATE INDEX fixtures_home_id_idx ON turkey_super_lig.fixtures USING btree (home_id);
 
 
 --
@@ -86627,4 +87962,6 @@ ALTER TABLE ONLY serie_a.fixtures
 --
 -- PostgreSQL database dump complete
 --
+
+\unrestrict sfML1QayzBWmEfIS2IDASG6Btp7YW8W4geyINvj7ha7Pis1H3r7MPnfnOz7TZLl
 
