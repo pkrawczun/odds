@@ -178,6 +178,7 @@ for league in leagues:
     lines = tmp
 
     # FOURTH PARSE. EXTRACT DATA
+    teams = set() # all the league's teams will go here, unique and unsorted
     i = 0
     try :
         while i < len(lines):
@@ -202,6 +203,8 @@ for league in leagues:
                 raise RawFileSyntaxError(lines[i], ": this should be in date and time format MM.DD. HH:MM")
             team1 = lines[i+1]
             team2 = lines[i+2]
+            teams.add(team1)
+            teams.add(team2)
             result = lines[i+3]
             if not result.isdigit():
                 raise RawFileSyntaxError(result, ": wrong result")
