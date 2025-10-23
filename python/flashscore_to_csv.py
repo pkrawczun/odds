@@ -106,6 +106,7 @@ def isSeason(str):
 class RawFileSyntaxError(Exception):
     pass
 
+teams_from_all_leagues = {}
 for league in leagues:
     file_path = os.path.join("..", "temp", f"{league}.raw")
     try:
@@ -223,6 +224,7 @@ for league in leagues:
             i += 4
     except IndexError:
         pass
+    teams_from_all_leagues[league] = teams
     
 #    for i in lines:
 #        print(i)
