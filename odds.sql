@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict sfML1QayzBWmEfIS2IDASG6Btp7YW8W4geyINvj7ha7Pis1H3r7MPnfnOz7TZLl
+\restrict Qfl5ivuSqAalKbezWlKrP1EnmId227CukGQdQrnKW6NRJKvnsUjFEwgIjZyqOKr
 
 -- Dumped from database version 17.6 (Ubuntu 17.6-1build1)
 -- Dumped by pg_dump version 17.6 (Ubuntu 17.6-1build1)
@@ -209,7 +209,8 @@ CASE
     WHEN (home_score > away_score) THEN 0
     WHEN (home_score < away_score) THEN 2
     ELSE 1
-END) STORED
+END) STORED,
+    season_name character varying(9)
 );
 
 
@@ -334,7 +335,8 @@ CASE
     WHEN (home_score > away_score) THEN 0
     WHEN (home_score < away_score) THEN 2
     ELSE 1
-END) STORED
+END) STORED,
+    season_name character varying(9)
 );
 
 
@@ -396,7 +398,8 @@ CASE
     WHEN (home_score > away_score) THEN 0
     WHEN (home_score < away_score) THEN 2
     ELSE 1
-END) STORED
+END) STORED,
+    season_name character varying(9)
 );
 
 
@@ -458,7 +461,8 @@ CASE
     WHEN (home_score > away_score) THEN 0
     WHEN (home_score < away_score) THEN 2
     ELSE 1
-END) STORED
+END) STORED,
+    season_name character varying(9)
 );
 
 
@@ -520,7 +524,8 @@ CASE
     WHEN (home_score > away_score) THEN 0
     WHEN (home_score < away_score) THEN 2
     ELSE 1
-END) STORED
+END) STORED,
+    season_name character varying(9)
 );
 
 
@@ -697,7 +702,8 @@ CASE
     WHEN (home_score > away_score) THEN 0
     WHEN (home_score < away_score) THEN 2
     ELSE 1
-END) STORED
+END) STORED,
+    season_name character varying(9)
 );
 
 
@@ -823,7 +829,8 @@ CASE
     WHEN (home_score > away_score) THEN 0
     WHEN (home_score < away_score) THEN 2
     ELSE 1
-END) STORED
+END) STORED,
+    season_name character varying(9)
 );
 
 
@@ -971,7 +978,8 @@ CASE
     WHEN (home_score > away_score) THEN 0
     WHEN (home_score < away_score) THEN 2
     ELSE 1
-END) STORED
+END) STORED,
+    season_name character varying(9)
 );
 
 
@@ -1033,7 +1041,8 @@ CASE
     WHEN (home_score > away_score) THEN 0
     WHEN (home_score < away_score) THEN 2
     ELSE 1
-END) STORED
+END) STORED,
+    season_name character varying(9)
 );
 
 
@@ -1090,7 +1099,7 @@ ALTER TABLE ONLY premier_league.fixtures ALTER COLUMN fixture_id SET DEFAULT nex
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: brasileiro_serie_a; Owner: postgres
 --
 
-COPY brasileiro_serie_a.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+COPY brasileiro_serie_a.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id, season_name) FROM stdin;
 \.
 
 
@@ -1107,6 +1116,53 @@ COPY brasileiro_serie_a.seasons (name, start_date, end_date, status) FROM stdin;
 --
 
 COPY brasileiro_serie_a.teams (name, team_id) FROM stdin;
+Ponte Preta	1
+Santo Andre	2
+Nautico	3
+Santos	4
+Vasco	5
+Mirassol	6
+Bragantino	7
+Cuiaba	8
+Figueirense	9
+Sao Caetano	10
+Sport Recife	11
+Portuguesa	12
+Paysandu PA	13
+Botafogo RJ	14
+America MG	15
+Fluminense	16
+Chapecoense-SC	17
+Criciuma	18
+Avai	19
+Vitoria	20
+Bahia	21
+Guarani	22
+Athletico-PR	23
+Sao Paulo	24
+Parana	25
+Brasiliense	26
+Botafogo SP	27
+Juventude	28
+Ceara	29
+Coritiba	30
+Corinthians	31
+Joinville	32
+Atletico GO	33
+Santa Cruz	34
+Gremio	35
+Palmeiras	36
+Atletico-MG	37
+Fortaleza	38
+Internacional	39
+CSA	40
+Ipatinga	41
+Gama	42
+America RN	43
+Goias	44
+Flamengo RJ	45
+Barueri	46
+Cruzeiro	47
 \.
 
 
@@ -20227,7 +20283,7 @@ Wuppertal	58
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: denmark_superliga; Owner: postgres
 --
 
-COPY denmark_superliga.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+COPY denmark_superliga.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id, season_name) FROM stdin;
 \.
 
 
@@ -20244,6 +20300,33 @@ COPY denmark_superliga.seasons (name, start_date, end_date, status) FROM stdin;
 --
 
 COPY denmark_superliga.teams (name, team_id) FROM stdin;
+Brondby	1
+Koge	2
+Odense	3
+Midtjylland	4
+Lyngby	5
+Aalborg	6
+Aarhus Fremad	7
+AB Copenhagen	8
+B.93	9
+Viborg	10
+Esbjerg	11
+Nordsjaelland	12
+Vejle	13
+Silkeborg	14
+Helsingor	15
+Randers FC	16
+Slagelse	17
+Horsens	18
+Aarhus	19
+FC Copenhagen	20
+Fredericia	21
+Hvidovre IF	22
+Herfolge	23
+Vendsyssel	24
+BK Frem	25
+Sonderjyske	26
+Hobro	27
 \.
 
 
@@ -20251,7 +20334,7 @@ COPY denmark_superliga.teams (name, team_id) FROM stdin;
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: ekstraklasa; Owner: postgres
 --
 
-COPY ekstraklasa.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+COPY ekstraklasa.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id, season_name) FROM stdin;
 \.
 
 
@@ -20268,6 +20351,50 @@ COPY ekstraklasa.seasons (name, start_date, end_date, status) FROM stdin;
 --
 
 COPY ekstraklasa.teams (name, team_id) FROM stdin;
+Zaglebie Sosnowiec	1
+Rakow	2
+Termalica B-B.	3
+Lechia Gdansk	4
+Warta Poznan	5
+LKS Lodz	6
+Leczna	7
+Wisla Plock	8
+Polkowice	9
+Wisla	10
+Podbeskidzie	11
+Groclin	12
+Korona Kielce	13
+Radomsko	14
+Stomil Olsztyn	15
+Stal Mielec	16
+Radzionkow	17
+Motor Lublin	18
+Pogon Szczecin	19
+Legnica	20
+Puszcza	21
+Legia	22
+Piast Gliwice	23
+Amica Wronki	24
+Polonia Warszawa	25
+Radomiak Radom	26
+Swit Mazowiecki	27
+Cracovia	28
+Zawisza	29
+Odra Wodzislaw	30
+GKS Belchatow	31
+Jagiellonia	32
+Ruch Chorzow	33
+Zaglebie	34
+Slask Wroclaw	35
+GKS Katowice	36
+Widzew Lodz	37
+Polonia Bytom	38
+Gornik Zabrze	39
+Arka Gdynia	40
+Szczakowianka	41
+Ostrowiec Swietokrzyski	42
+Lech Poznan	43
+Sandecja Nowy S.	44
 \.
 
 
@@ -20275,7 +20402,7 @@ COPY ekstraklasa.teams (name, team_id) FROM stdin;
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: eredivisie; Owner: postgres
 --
 
-COPY eredivisie.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+COPY eredivisie.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id, season_name) FROM stdin;
 \.
 
 
@@ -20292,6 +20419,40 @@ COPY eredivisie.seasons (name, start_date, end_date, status) FROM stdin;
 --
 
 COPY eredivisie.teams (name, team_id) FROM stdin;
+Heerenveen	1
+FC Emmen	2
+Groningen	3
+G.A. Eagles	4
+Almere City	5
+Nijmegen	6
+Maastricht	7
+AZ Alkmaar	8
+Den Haag	9
+Den Bosch	10
+Sittard	11
+Zwolle	12
+Ajax	13
+Cambuur	14
+Sparta Rotterdam	15
+Roosendaal	16
+Twente	17
+Willem II	18
+Schiedam	19
+Telstar	20
+PSV	21
+Utrecht	22
+NAC Breda	23
+De Graafschap	24
+Dordrecht	25
+Haarlem	26
+FC Volendam	27
+Excelsior	28
+Heracles	29
+Vitesse	30
+Feyenoord	31
+Roda	32
+Waalwijk	33
+Venlo	34
 \.
 
 
@@ -20299,7 +20460,7 @@ COPY eredivisie.teams (name, team_id) FROM stdin;
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: jupiler_pro_league; Owner: postgres
 --
 
-COPY jupiler_pro_league.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+COPY jupiler_pro_league.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id, season_name) FROM stdin;
 \.
 
 
@@ -20316,6 +20477,44 @@ COPY jupiler_pro_league.seasons (name, start_date, end_date, status) FROM stdin;
 --
 
 COPY jupiler_pro_league.teams (name, team_id) FROM stdin;
+Gent	1
+KSV Roeselare	2
+Aalst	3
+Royale Union SG	4
+Westerlo	5
+Heusden-Zolder	6
+Cercle Brugge KSV	7
+Genk	8
+Beveren	9
+Seraing	10
+Tubize-Braine	11
+Club Brugge KV	12
+Beerschot VA	13
+RAAL La Louviere	14
+Mouscron	15
+KSK Beveren	16
+Charleroi	17
+RWD Molenbeek	18
+Kortrijk	19
+Lierse	20
+Geel	21
+KFC Lommel SK	22
+Leuven	23
+Antwerp	24
+RAA Louvieroise	25
+KRC Zuid-West-Vlaanderen	26
+Lokeren	27
+KV Mechelen	28
+Anderlecht	29
+St. Truiden	30
+Eupen	31
+RWDM Brussels	32
+Oostende	33
+St. Liege	34
+Mons	35
+Waregem	36
+Dender	37
+Beerschot AC	38
 \.
 
 
@@ -35208,7 +35407,7 @@ COPY premier_league.venues (name) FROM stdin;
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: primeira_liga; Owner: postgres
 --
 
-COPY primeira_liga.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+COPY primeira_liga.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id, season_name) FROM stdin;
 \.
 
 
@@ -35225,6 +35424,47 @@ COPY primeira_liga.seasons (name, start_date, end_date, status) FROM stdin;
 --
 
 COPY primeira_liga.teams (name, team_id) FROM stdin;
+FC Porto	1
+SC Campomaiorense	2
+Casa Pia	3
+Estrela	4
+Tondela	5
+Penafiel	6
+Estoril	7
+Feirense	8
+Alverca	9
+Portimonense	10
+Moreirense	11
+Maritimo	12
+Leixoes	13
+Vitoria Setubal	14
+Trofense	15
+Naval	16
+Vizela	17
+SC Farense	18
+Aves	19
+Beira Mar	20
+Leiria	21
+Arouca	22
+Santa Clara	23
+BSAD	24
+Olhanense	25
+Chaves	26
+Pacos Ferreira	27
+Gil Vicente	28
+AFS	29
+Varzim	30
+Nacional	31
+U. Madeira	32
+Braga	33
+Salgueiros	34
+Rio Ave	35
+Academica	36
+Boavista	37
+Sporting CP	38
+Famalicao	39
+Vitoria Guimaraes	40
+Benfica	41
 \.
 
 
@@ -49267,7 +49507,7 @@ UD Salamanca	50
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: prva_hrvatska; Owner: postgres
 --
 
-COPY prva_hrvatska.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+COPY prva_hrvatska.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id, season_name) FROM stdin;
 \.
 
 
@@ -49284,6 +49524,34 @@ COPY prva_hrvatska.seasons (name, start_date, end_date, status) FROM stdin;
 --
 
 COPY prva_hrvatska.teams (name, team_id) FROM stdin;
+Rudes	1
+D. Zagreb	2
+Gorica	3
+NK Zagreb	4
+Cibalia	5
+Topolovac	6
+Osijek	7
+Dragovoljac	8
+Lok. Zagreb	9
+Varazdin	10
+Lucko	11
+Suhopolje	12
+Marsonia	13
+Medjimurje Cakovec	14
+Rijeka	15
+Hajduk Split	16
+Istra Pula	17
+NK Kamen Ingrad	18
+Istra 1961	19
+Vukovar 1991	20
+Zapresic	21
+NK Pomorac	22
+Croatia Sesvete	23
+RNK Split	24
+Karlovac	25
+Zadar	26
+Sibenik	27
+Slaven Belupo	28
 \.
 
 
@@ -87086,7 +87354,7 @@ COPY serie_a.tmp (name) FROM stdin;
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: swiss_super_league; Owner: postgres
 --
 
-COPY swiss_super_league.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+COPY swiss_super_league.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id, season_name) FROM stdin;
 \.
 
 
@@ -87103,6 +87371,27 @@ COPY swiss_super_league.seasons (name, start_date, end_date, status) FROM stdin;
 --
 
 COPY swiss_super_league.teams (name, team_id) FROM stdin;
+Aarau	1
+Basel	2
+Luzern	3
+Xamax	4
+Bellinzona	5
+Sion	6
+Lugano	7
+Schaffhausen	8
+Lausanne Ouchy	9
+Grasshoppers	10
+Yverdon	11
+Delemont	12
+Winterthur	13
+Young Boys	14
+Wil	15
+Lausanne	16
+St. Gallen	17
+Thun	18
+Servette	19
+Zurich	20
+Vaduz	21
 \.
 
 
@@ -87110,7 +87399,7 @@ COPY swiss_super_league.teams (name, team_id) FROM stdin;
 -- Data for Name: fixtures; Type: TABLE DATA; Schema: turkey_super_lig; Owner: postgres
 --
 
-COPY turkey_super_lig.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id) FROM stdin;
+COPY turkey_super_lig.fixtures (home_score, away_score, fixture_date, fixture_id, home_id, away_id, season_name) FROM stdin;
 \.
 
 
@@ -87127,6 +87416,60 @@ COPY turkey_super_lig.seasons (name, start_date, end_date, status) FROM stdin;
 --
 
 COPY turkey_super_lig.teams (name, team_id) FROM stdin;
+Elazigspor	1
+Balikesirspor	2
+Sakaryaspor	3
+Giresunspor	4
+Orduspor	5
+Kayserispor	6
+Karagumruk	7
+Istanbulspor AS	8
+Genclerbirligi	9
+Adanaspor AS	10
+Erzurumspor	11
+Alanyaspor	12
+Trabzonspor	13
+Manisaspor	14
+Gaziantepspor	15
+Ankaragucu	16
+Hacettepe	17
+Yeni Malatyaspor	18
+Gaziantep	19
+Goztepe	20
+Eskisehirspor	21
+Siirtspor	22
+Denizlispor	23
+Kocaelispor	24
+Sivasspor	25
+Mersin	26
+Yozgatspor 1959 FK	27
+Pendikspor	28
+Kardemir Karabuk	29
+Vanspor AS	30
+Kayseri Erciyesspor	31
+Galatasaray	32
+Adana Demirspor	33
+Fenerbahce	34
+Konyaspor	35
+Basaksehir	36
+Antalyaspor	37
+Diyarbakirspor	38
+Hatayspor	39
+Dardanelspor	40
+Rizespor	41
+Bucaspor	42
+Ankaraspor	43
+Kasimpasa	44
+Eyupspor	45
+Umraniyespor	46
+Bodrumspor	47
+Akhisarspor	48
+Altay	49
+Samsunspor	50
+Bursaspor	51
+Malatyaspor	52
+Besiktas	53
+Sebatspor	54
 \.
 
 
@@ -87134,7 +87477,7 @@ COPY turkey_super_lig.teams (name, team_id) FROM stdin;
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: brasileiro_serie_a; Owner: postgres
 --
 
-SELECT pg_catalog.setval('brasileiro_serie_a.teams_team_id_seq', 1, false);
+SELECT pg_catalog.setval('brasileiro_serie_a.teams_team_id_seq', 47, true);
 
 
 --
@@ -87148,28 +87491,28 @@ SELECT pg_catalog.setval('bundesliga.teams_team_id_seq', 58, true);
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: denmark_superliga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('denmark_superliga.teams_team_id_seq', 1, false);
+SELECT pg_catalog.setval('denmark_superliga.teams_team_id_seq', 27, true);
 
 
 --
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: ekstraklasa; Owner: postgres
 --
 
-SELECT pg_catalog.setval('ekstraklasa.teams_team_id_seq', 1, false);
+SELECT pg_catalog.setval('ekstraklasa.teams_team_id_seq', 44, true);
 
 
 --
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: eredivisie; Owner: postgres
 --
 
-SELECT pg_catalog.setval('eredivisie.teams_team_id_seq', 1, false);
+SELECT pg_catalog.setval('eredivisie.teams_team_id_seq', 34, true);
 
 
 --
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: jupiler_pro_league; Owner: postgres
 --
 
-SELECT pg_catalog.setval('jupiler_pro_league.teams_team_id_seq', 1, false);
+SELECT pg_catalog.setval('jupiler_pro_league.teams_team_id_seq', 38, true);
 
 
 --
@@ -87197,7 +87540,7 @@ SELECT pg_catalog.setval('premier_league.teams_team_id_seq', 42, true);
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: primeira_liga; Owner: postgres
 --
 
-SELECT pg_catalog.setval('primeira_liga.teams_team_id_seq', 1, false);
+SELECT pg_catalog.setval('primeira_liga.teams_team_id_seq', 41, true);
 
 
 --
@@ -87211,7 +87554,7 @@ SELECT pg_catalog.setval('primera_division.teams_team_id_seq', 50, true);
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: prva_hrvatska; Owner: postgres
 --
 
-SELECT pg_catalog.setval('prva_hrvatska.teams_team_id_seq', 1, false);
+SELECT pg_catalog.setval('prva_hrvatska.teams_team_id_seq', 28, true);
 
 
 --
@@ -87225,14 +87568,14 @@ SELECT pg_catalog.setval('serie_a.teams_team_id_seq', 53, true);
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: swiss_super_league; Owner: postgres
 --
 
-SELECT pg_catalog.setval('swiss_super_league.teams_team_id_seq', 1, false);
+SELECT pg_catalog.setval('swiss_super_league.teams_team_id_seq', 21, true);
 
 
 --
 -- Name: teams_team_id_seq; Type: SEQUENCE SET; Schema: turkey_super_lig; Owner: postgres
 --
 
-SELECT pg_catalog.setval('turkey_super_lig.teams_team_id_seq', 1, false);
+SELECT pg_catalog.setval('turkey_super_lig.teams_team_id_seq', 54, true);
 
 
 --
@@ -87963,5 +88306,5 @@ ALTER TABLE ONLY serie_a.fixtures
 -- PostgreSQL database dump complete
 --
 
-\unrestrict sfML1QayzBWmEfIS2IDASG6Btp7YW8W4geyINvj7ha7Pis1H3r7MPnfnOz7TZLl
+\unrestrict Qfl5ivuSqAalKbezWlKrP1EnmId227CukGQdQrnKW6NRJKvnsUjFEwgIjZyqOKr
 
