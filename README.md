@@ -1,5 +1,9 @@
 Simple odds calculator for football events.
 
+Football results from some (mostly European) leagues are stored in a PostgreSQL database (odds.sql). A program written in C++ accesses it with the libpqxx library. A number of algorithms can be used to process those results.
+
+At this point it's all very basic and the odds calculated are based on very simple statistical analysis.
+
 Building on Ubuntu 25.10
 
 Prerequisites:  
@@ -29,3 +33,5 @@ Example use:
 ./odds --conv --league "premier_league" --season "2023-2024"  
 ./odds --semi --league "premier_league" --sd "2011-01-01" --ed "2012-12-31"  
 ./odds --line --league "ligue_1" --sd "2011-01-01" --ed "2012-12-31" --sc 2.0 1.0 1.5 3.0
+
+Building on Windows 11
