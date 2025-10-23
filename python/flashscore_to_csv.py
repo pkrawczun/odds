@@ -39,6 +39,7 @@
 # 8. Read results.
 
 import os # os.path.join
+import datetime
 
 leagues = [
     "eredivisie",               # NL
@@ -101,6 +102,16 @@ def isSeason(str):
         ):
         return True
     return False
+
+def date_greater(m1, d1, m2, d2):
+    if m1>m2:
+        return True
+    elif m1==m2 and d1>d2:
+        return True
+    return False
+
+def date_smaller(m1, d1, m2, d2):
+    return not date_greater(m1, d1, m2, d2)
 
 # Data from a .raw file cannot be extracted correctly.
 class RawFileSyntaxError(Exception):
@@ -179,6 +190,8 @@ for league in leagues:
     lines = tmp
 
     # FOURTH PARSE. EXTRACT DATA
+    #seasons = {} # all seasons of a given league
+                 # key-value pairs: season-(season_start-season_end)
     teams = set() # all the league's teams will go here, unique and unsorted
     i = 0
     try :
@@ -199,7 +212,7 @@ for league in leagues:
                 day = lines[i][:2]
                 month = lines[i][3:5]
                 #hour =
-                #minutes =
+                #day =
             else:
                 raise RawFileSyntaxError(lines[i], ": this should be in date and time format MM.DD. HH:MM")
             team1 = lines[i+1]
